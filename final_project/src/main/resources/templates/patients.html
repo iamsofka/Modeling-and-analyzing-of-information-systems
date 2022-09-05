@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/stylesheets/styles.css}">
+
+<body>
+
+<nav class="w3-bar w3-dark-grey">
+    <a th:href="@{/home}" class="w3-bar-item-left" style="text-decoration: none;">MEDPORTAL</a>
+    <a class="w3-bar-item-right" style="text-decoration: none;">SIGN UP</a>
+</nav>
+
+<div>
+    <nav class="w3-sidenav w3-grey">
+        <br>
+        <a th:href="@{/default_doctor}" class="w3-button w3-bar-item-right" style="text-decoration: none;">PATIENT LIST</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">APPOINTMENTS</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">TO DO</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">EDIT PROFILE</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">LOG OUT</a>
+    </nav>
+</div>
+
+<div class="w3-container w3-center">
+    <br>
+        <h2 class="w3-wide">Your Patients:</h2>
+    <br>
+</div>
+
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(patients)}">
+        <div th:each="patient : ${patients}">
+            <div>
+                <h2 th:text="${patient.fullName}" style="margin-right: 30px"></h2>
+                <a th:href="@{/patientInfo/{patient_id}(patient_id=${patient.id})}">CHECK THIS PATIENT</a>
+            </div>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(patients)}">
+        <div class="w3-container w3-display-middle">
+            <br>
+            <h2>SOMETHING WENT WRONG, BUT</h2>
+            <h2>WE CANNOT FIND ANY PATIENTS</h2>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

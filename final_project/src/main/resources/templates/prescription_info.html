@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/stylesheets/styles.css}">
+
+<body>
+
+
+<nav class="w3-bar w3-dark-grey">
+    <a th:href="@{/home}" class="w3-bar-item-left" style="text-decoration: none;">MEDPORTAL</a>
+    <a class="w3-bar-item-right" style="text-decoration: none;">SIGN UP</a>
+</nav>
+
+<div>
+    <nav class="w3-sidenav w3-grey">
+        <br>
+        <a th:href="@{/default_doctor}" class="w3-button w3-bar-item-right" style="text-decoration: none;">PATIENT LIST</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">APPOINTMENTS</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">TO DO</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">EDIT PROFILE</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">LOG OUT</a>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="info-group">
+        <h2 th:text="${prescription.medicineName}" style="margin-right: 30px"></h2>
+        <h3 th:text="${prescription.status}"></h3>
+    </div>
+    <div class="info-group">
+        <label for="descr">Description</label>
+        <div class="info" id="descr" th:text="${prescription.description}"></div>
+    </div>
+    <br>
+    <br>
+    <div class="info-group" th:if="${prescription.status == 'EXPIRED'}">
+        <form method="POST" th:action="@{'/patientInfo/prescriptions/{prescription_id}/renew' (prescription_id=${prescription.id})}">
+            <button type="submit" name="submit" value="value" class="w3-button">RENEW PRESCRIPTION</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

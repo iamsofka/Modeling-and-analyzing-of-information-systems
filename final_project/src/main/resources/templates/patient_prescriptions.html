@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/stylesheets/styles.css}">
+
+<body>
+
+
+<nav class="w3-bar w3-dark-grey">
+    <a th:href="@{/home}" class="w3-bar-item-left" style="text-decoration: none;">MEDPORTAL</a>
+    <a class="w3-bar-item-right" style="text-decoration: none;">SIGN UP</a>
+</nav>
+
+<div>
+    <nav class="w3-sidenav w3-grey">
+        <br>
+        <a th:href="@{/default_doctor}" class="w3-button w3-bar-item-right" style="text-decoration: none;">PATIENT LIST</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">APPOINTMENTS</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">TO DO</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">EDIT PROFILE</a>
+        <a th:href="@{/not_implemented_yet}" class="w3-button w3-bar-item-right" style="text-decoration: none;">LOG OUT</a>
+    </nav>
+</div>
+
+<div class="w3-container w3-center">
+    <br>
+    <h2 class="w3-wide">Prescriptions:</h2>
+    <br>
+</div>
+
+<div>
+    <div th:if="${not #lists.isEmpty(prescriptions)}" class="container">
+        <div>
+            <div th:each="prescription : ${prescriptions}">
+                <div>
+                    <h2 th:text="${prescription.medicineName}" style="margin-right: 30px"></h2>
+                    <h3 th:text="${prescription.expiryStatus}" style="margin-right: 30px"></h3>
+                    <a th:href="@{/patientInfo/prescriptions/{prescription_id} (prescription_id=${prescription.id})}">VIEW DETAILS</a>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 50px">
+            <form method="GET" th:action="@{'/patientInfo/{patient_id}/newPrescription'(patient_id=${patient_id})}">
+                <button type="submit" name="submit" value="value" class="w3-button">CREATE NEW PRESCRIPTION</button>
+            </form>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(prescriptions)}" class="w3-container w3-display-middle">
+        <br>
+        <div>
+        <h2>SOMETHING WENT WRONG, BUT</h2>
+        <h2>WE CANNOT FIND ANY PRESCRIPTIONS FOR THIS PATIENT</h2>
+        </div>
+        <div style="margin-top: 50px">
+            <div>
+                <form method="GET" th:action="@{/home}">
+                    <button type="submit" value="value" class="w3-button">GO TO HOMEPAGE</button>
+                </form>
+            </div>
+            <div style="margin-top: 25px">
+                <form method="GET" th:action="@{'/patientInfo/{patient_id}/newPrescription'(patient_id=${patient_id})}">
+                    <button type="submit" name="submit" value="value" class="w3-button">CREATE NEW PRESCRIPTION</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
